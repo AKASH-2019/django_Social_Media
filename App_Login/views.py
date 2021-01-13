@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from App_Posts.forms import PostForm
 
 
+
 def sign_up(request):
     form = CreateNewUser()
     register = False

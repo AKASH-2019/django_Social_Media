@@ -3,7 +3,7 @@
 {% block title_bloc %} {{title}} {% endblock %}
 
 {% block css_block %}
-<style></style>
+<style xmlns="http://www.w3.org/1999/html"></style>
 
 {% endblock %}
 
@@ -29,10 +29,10 @@
   {% endfor %}
   <br>
 {% else %}
+
 <div class="row">
     <div class="col-sm-8">
-        {% for author in following_list %}
-        {% for post in author.following.post.all %}
+        {% for post in posts %}
         <div style="border: 1px solid #808080;">
            <div style="padding: 10px">
                {% if post.author.user_profile.profile_pic %}
@@ -43,10 +43,17 @@
                <a href="{% url 'App_Login:user' username=post.author %}">{{post.author}}</a>
            </div>
            <img src="/media/{{post.image}}" width="100%">
+            {{ post.liked_post.count }} likes <br>
+            <div style="padding:20px">
+                {% if post.pk in liked_post_list %}
+                    <a href="{% url 'App_Posts:unliked' pk=post.pk %}"> <i class="fa fa-heart" style="font-size:36px"></i></a>
+                {% else %}
+                    <a href="{% url 'App_Posts:liked' pk=post.pk %}"><i class="fa fa-heart-o" style="font-size:36px"></i></a>
+                {% endif %}
+            </div>
         </div>
         <br>
         <br>
-        {% endfor %}
         {% endfor %}
     </div>
     <div class="col-sm-4">
